@@ -1,0 +1,47 @@
+class Node{
+  int data;
+  Node left;
+  Node right;
+
+  Node(int data){
+    this.data = data;
+    left = null;
+    right = null;
+  }
+}
+class BinaryTree{
+  Node root;
+  int diameter(Node node){
+      if(node == null){
+          return 0;
+      }
+      
+      int lt = height(root.left);
+      int rt = height(root.right);
+      int ld = diameter(root.left);
+      int rd = diameter(root.right);
+      int sd = lt + rt + 1;
+      return Math.max(sd, Math.max(ld, rd));
+  }
+  int height(Node node){
+      if(node == null){
+          return 0;
+      }
+      else{
+        int lt = height(root.left);
+        int rt = height(root.right);
+        return Math.max(lt, rt) + 1;
+      }
+  }
+  public static void main(String[] args){
+        BinaryTree tree = new BinaryTree();
+        tree.root = new Node(1);
+        tree.root.left = new Node(2);
+        tree.root.right = new Node(3);
+        tree.root.left.left = new Node(4);
+        tree.root.left.right = new Node(5);
+
+    int ans = tree.diameter(tree.root);
+    System.out.println("The diameter of the tree is : "+ans);
+  }
+}
